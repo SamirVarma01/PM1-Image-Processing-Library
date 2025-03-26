@@ -244,13 +244,13 @@ imatrix* add(imatrix* m1, imatrix* m2) {
 
     for (i = 0; i < m1->height; i++) {
         for (j = 0; j < m1->width; j++) {
-            int red_sum = m1->r[i][j] + m2->r[i][j];
+            int red_sum = (int)m1->r[i][j] + (int)m2->r[i][j];
             result->r[i][j] = (red_sum > 255) ? 255 : (uint8_t)red_sum;
 
-            int green_sum = m1->g[i][j] + m2->g[i][j];
+            int green_sum = (int)m1->g[i][j] + (int)m2->g[i][j];
             result->g[i][j] = (green_sum > 255) ? 255 : (uint8_t)green_sum;
-            
-            int blue_sum = m1->b[i][j] + m2->b[i][j];
+
+            int blue_sum = (int)m1->b[i][j] + (int)m2->b[i][j];
             result->b[i][j] = (blue_sum > 255) ? 255 : (uint8_t)blue_sum;
         }
     }
@@ -291,13 +291,13 @@ imatrix* subtract(imatrix* m1, imatrix* m2) {
 
     for (i = 0; i < m1->height; i++) {
         for (j = 0; j < m1->width; j++) {
-            int red_diff = m1->r[i][j] - m2->r[i][j];
+            int red_diff = (int)m1->r[i][j] - (int)m2->r[i][j];
             result->r[i][j] = (red_diff < 0) ? 0 : (uint8_t)red_diff;
 
-            int green_diff = m1->g[i][j] - m2->g[i][j];
+            int green_diff = (int)m1->g[i][j] - (int)m2->g[i][j];
             result->g[i][j] = (green_diff < 0) ? 0 : (uint8_t)green_diff;
 
-            int blue_diff = m1->b[i][j] - m2->b[i][j];
+            int blue_diff = (int)m1->b[i][j] - (int)m2->b[i][j];
             result->b[i][j] = (blue_diff < 0) ? 0 : (uint8_t)blue_diff;
         }
     }
