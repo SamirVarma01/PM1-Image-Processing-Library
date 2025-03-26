@@ -225,10 +225,39 @@ void free_imatrix(imatrix* image_matrix){
 *                NULL if the matrices are not the same size (same number of rows and columns).
 *            Note: This memory must be freed when you're done using it.
 */
-imatrix* add(imatrix* m1, imatrix* m2){
+imatrix* add(imatrix* m1, imatrix* m2) {
+    int i, j;
+    imatrix* result;
+
+    if (m1 == NULL || m2 == NULL) {
+        return NULL;
+    }
+
+    if (m1->width != m2->width || m1->height != m2->height) {
+        return NULL;
+    }
+
+    result = init_blank_rgb_image(m1->width, m1->height);
+    if (result == NULL) {
+        return NULL;
+    }
+
+    for (i = 0; i < m1->height; i++) {
+        for (j = 0; j < m1->width; j++) {
+            int red_sum = m1->r[i][j] + m2->r[i][j];
+            result->r[i][j] = (red_sum > 255) ? 255 : (uint8_t)red_sum;
+
+            int green_sum = m1->g[i][j] + m2->g[i][j];
+            result->g[i][j] = (green_sum > 255) ? 255 : (uint8_t)green_sum;
+            
+            int blue_sum = m1->b[i][j] + m2->b[i][j];
+            result->b[i][j] = (blue_sum > 255) ? 255 : (uint8_t)blue_sum;
+        }
+    }
+
+    result->write_rgb_to_image(result);
     
-    // FILL IN THE CODE HERE
-    return NULL;
+    return result;
 }
 
 
@@ -244,8 +273,38 @@ imatrix* add(imatrix* m1, imatrix* m2){
 *            Note: This memory must be freed when you're done using it.
 */
 imatrix* subtract(imatrix* m1, imatrix* m2) {
-    // FILL IN THE CODE HERE
-    return NULL;
+    int i, j;
+    imatrix* result;
+
+    if (m1 == NULL || m2 == NULL) {
+        return NULL;
+    }
+
+    if (m1->width != m2->width || m1->height != m2->height) {
+        return NULL;
+    }
+
+    result = init_blank_rgb_image(m1->width, m1->height);
+    if (result == NULL) {
+        return NULL;
+    }
+
+    for (i = 0; i < m1->height; i++) {
+        for (j = 0; j < m1->width; j++) {
+            int red_diff = m1->r[i][j] - m2->r[i][j];
+            result->r[i][j] = (red_diff < 0) ? 0 : (uint8_t)red_diff;
+
+            int green_diff = m1->g[i][j] - m2->g[i][j];
+            result->g[i][j] = (green_diff < 0) ? 0 : (uint8_t)green_diff;
+
+            int blue_diff = m1->b[i][j] - m2->b[i][j];
+            result->b[i][j] = (blue_diff < 0) ? 0 : (uint8_t)blue_diff;
+        }
+    }
+
+    result->write_rgb_to_image(result);
+    
+    return result;
 }
 
 
@@ -305,6 +364,3 @@ imatrix* scale(imatrix* this, int width, int height, float alpha) {
     
     return this;
 }
-
-
-
