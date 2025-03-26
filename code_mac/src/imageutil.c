@@ -318,11 +318,37 @@ imatrix* subtract(imatrix* m1, imatrix* m2) {
 *               Note: This memory must be freed after use.
 */
 imatrix* dot(imatrix* m1, imatrix* m2){
+  if (m1 == NULL || m2 == NULL || m1->width != m2->height) {
+        return NULL;
+     }
+        
+    int i, j,k;
+    imatrix* result;
+        
+    result = init_blank_rgb_image(m2->width, m1->height);
+    if (result == NULL) {
+        return NULL;
+    }
+        
+    for (i = 0; i < m1->height; i++) {
+        for (j = 0; j < m2->width; j++) {
+            int red_sum = 0, green_sum=0, blue_sum = 0;
     
-
-    // FILL IN THE CODE HERE
- 
-    return NULL;
+            for(k = 0; k < m1->width; k++){
+                red_sum += (int)m1->r[i][k] * (int)m2->r[k][j];
+                green_sum += (int)m1->g[i][k] * (int)m2->g[k][j];
+                blue_sum += (int)m1->b[i][k] * (int)m2->b[k][j];
+            }
+            result->r[i][j] = (uint8)(red_sum> 255 ? 255 : red_sum);
+            result->g[i][j] = (uint8)(green_sum > 255 ? 255 : green_sum);
+            result->b[i][j] = (uint8)(blue_sum > 255 ? 255 : blue_sum);
+    
+        }
+    }
+        
+    result->write_rgb_to_image(result);
+            
+    return result;
 }
 
 
