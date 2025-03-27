@@ -339,9 +339,9 @@ imatrix* dot(imatrix* m1, imatrix* m2){
                 green_sum += (int)m1->g[i][k] * (int)m2->g[k][j];
                 blue_sum += (int)m1->b[i][k] * (int)m2->b[k][j];
             }
-            result->r[i][j] = (uint8)(red_sum> 255 ? 255 : red_sum);
-            result->g[i][j] = (uint8)(green_sum > 255 ? 255 : green_sum);
-            result->b[i][j] = (uint8)(blue_sum > 255 ? 255 : blue_sum);
+            result->r[i][j] = (uint8_t)(red_sum> 255 ? 255 : red_sum);
+            result->g[i][j] = (uint8_t)(green_sum > 255 ? 255 : green_sum);
+            result->b[i][j] = (uint8_t)(blue_sum > 255 ? 255 : blue_sum);
     
         }
     }
